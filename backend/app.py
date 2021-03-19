@@ -1,8 +1,9 @@
 import os
+from flask import Flask
 from database.db import db
 from dotenv import load_dotenv
-from flask import Flask, Response
 from blueprints.users import users_blueprint
+from utils.http import not_found, not_allowed, internal_error
 
 load_dotenv()  # load env files
 
@@ -17,18 +18,15 @@ def create_app():
 
     @app.errorhandler(404)
     def route_not_found(e):
-        response = Response(response='Route not found.', status=404)
-        return response
+        return not_found('route')
 
     @app.errorhandler(405)
     def method_not_allowed(e):
-        response = Response(response='Method not allowed.', status=405)
-        return response
+        return not_allowed()
 
     @app.errorhandler(Exception)
-    def internal_error(e):
-        response = Response(response='Internal Error.', status=500)
-        return response
+    def internal_server_error(e):
+        return internal_error()
 
     return app
 

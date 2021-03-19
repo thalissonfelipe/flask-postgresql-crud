@@ -1,6 +1,7 @@
 from database.db import db
+from flask import Blueprint, request
 from models.models import User, Address
-from flask import Blueprint, jsonify, request, Response
+from utils.http import ok, created, no_content, not_found
 
 
 users_blueprint = Blueprint('users_blueprint', __name__)
@@ -10,10 +11,9 @@ users_blueprint = Blueprint('users_blueprint', __name__)
 def user(id):
     user_exists = User.query.get(id)
     if user_exists is None:
-        response = Response(response='User not found.', status=404)
-        return response
+        return not_found('user')
     if request.method == 'GET':
-        return jsonify(user_exists.serialize())
+        return ok(user_exists)
     if request.method == 'PUT':
         body = request.get_json()
         user_exists.name = body.get('name', user_exists.name)
@@ -28,13 +28,11 @@ def user(id):
             user_exists.address.state = \
                 body['address'].get('state', user_exists.address.state)
         db.session.commit()
-        response = Response(status=204)
-        return response
+        return no_content()
     if request.method == 'DELETE':
         db.session.delete(user_exists)
         db.session.commit()
-        response = Response(status=204)
-        return response
+        return no_content()
 
 
 @users_blueprint.route('/users/', methods=['GET', 'POST'])
@@ -54,7 +52,7 @@ def users():
                     .limit(limit) \
                     .all()
 
-        return jsonify([user.serialize() for user in users])
+        return ok(users)
     if request.method == 'POST':
         body = request.get_json()
         user = User(body['name'], body['age'])
@@ -70,4 +68,4 @@ def users():
         db.session.add(address)
         db.session.commit()
 
-        return jsonify(user.serialize()), 201
+        return created(user)
