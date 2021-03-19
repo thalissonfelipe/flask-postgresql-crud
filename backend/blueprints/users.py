@@ -6,7 +6,7 @@ from flask import Blueprint, jsonify, request, Response
 users_blueprint = Blueprint('users_blueprint', __name__)
 
 
-@users_blueprint.route('/users/<id>', methods=['GET', 'PUT', 'DELETE'])
+@users_blueprint.route('/users/<id>/', methods=['GET', 'PUT', 'DELETE'])
 def user(id):
     user_exists = User.query.get(id)
     if user_exists is None:
@@ -37,7 +37,7 @@ def user(id):
         return response
 
 
-@users_blueprint.route('/users', methods=['GET', 'POST'])
+@users_blueprint.route('/users/', methods=['GET', 'POST'])
 def users():
     if request.method == 'GET':
         limit = request.args.get('limit', None)

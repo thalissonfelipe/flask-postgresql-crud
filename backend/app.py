@@ -10,6 +10,7 @@ load_dotenv()  # load env files
 def create_app():
     app = Flask(__name__)
     app.config.from_object(os.getenv('APP_SETTINGS'))
+    app.url_map.strict_slashes = False
     db.init_app(app)
 
     app.register_blueprint(users_blueprint)
