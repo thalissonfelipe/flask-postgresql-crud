@@ -13,7 +13,7 @@ def create_app():
     app.url_map.strict_slashes = False
     db.init_app(app)
 
-    app.register_blueprint(users_blueprint)
+    app.register_blueprint(users_blueprint, url_prefix='/api/v1')
 
     @app.errorhandler(404)
     def route_not_found(e):
