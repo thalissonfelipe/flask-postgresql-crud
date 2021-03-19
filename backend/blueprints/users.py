@@ -1,8 +1,18 @@
 from models.models import User
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, Response
 
 
 users_blueprint = Blueprint('users_blueprint', __name__)
+
+
+@users_blueprint.route('/users/<id>', methods=['GET'])
+def show(id):
+    user = User.query.filter_by(id=id).first()
+    if user:
+        return jsonify(user.serialize())
+
+    response = Response(response='User not found.', status=404)
+    return response
 
 
 @users_blueprint.route('/users', methods=['GET'])
