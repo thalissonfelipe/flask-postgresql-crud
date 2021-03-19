@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask - CRUD</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/create-user.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">Criar novo usuário</h1>
+            <a href="index.html" id="btnAdd" class="btn btn--add">Lista de usuários</a>
+        </header>
+        <form>
+            <fieldset>
+                <legend>Dados pessoais</legend>
+                <input type="text" id="name" placeholder="Nome Completo">
+                <input type="number" id="age" placeholder="Idade">
+            </fieldset>
+            <fieldset>
+                <legend>Endereço</legend>
+                <input type="text" id="street" placeholder="Rua/Avenida">
+                <input type="number" id="number" placeholder="Número">
+                <input type="text" id="city" placeholder="Cidade">
+                <input type="text" id="state" placeholder="Estado">
+            </fieldset>
+            <button id="btnCreate" class="btn btn--add">Criar usuário</button>
+        </form>
+    </div>
+    <script src="scripts/create-user.js"></script>
+</body>
+</html>

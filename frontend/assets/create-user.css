@@ -1,0 +1,33 @@
+@import './global.css';
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem;
+}
+
+fieldset {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+}
+
+fieldset legend {
+    padding: 0 .2rem;
+}
+
+input {
+    padding: .5rem 1rem;
+    outline: 0;
+}
+
+input:not(:last-child) {
+    margin-bottom: .5rem;
+}
+
+#btnCreate {
+    border-radius: unset;
+}

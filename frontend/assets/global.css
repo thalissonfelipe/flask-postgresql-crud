@@ -1,0 +1,80 @@
+/* Global CSS */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    font-size: 100%;
+}
+
+body {
+    height: 100%;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Utilities */
+
+.container {
+    width: 100%;
+    max-width: 592px;
+    margin: 0 auto;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+.btn {
+    font-size: 1rem;
+    padding: .5rem 1rem;
+    border: none;
+    outline: none;
+    border-radius: .3rem;
+    cursor: pointer;
+    color: white;
+    transition: opacity .2s;
+    font-weight: 500;
+}
+
+.btn:hover {
+    opacity: .8;
+}
+
+.btn--no,
+.btn--remove {
+    background-color: #dc3545;
+}
+
+.btn--update {
+    background-color: #007bff;
+}
+
+.btn--yes {
+    background-color: #28a745;
+}
+
+.btn--add {
+    background-color: #6c757d;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
