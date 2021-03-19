@@ -6,7 +6,7 @@ from flask import Blueprint, jsonify, request, Response
 users_blueprint = Blueprint('users_blueprint', __name__)
 
 
-@users_blueprint.route('/users/<id>', methods=['GET', 'DELETE'])
+@users_blueprint.route('/users/<id>', methods=['GET', 'PUT', 'DELETE'])
 def user(id):
     user_exists = User.query.get(id)
     if user_exists is None:
@@ -14,7 +14,23 @@ def user(id):
         return response
     if request.method == 'GET':
         return jsonify(user_exists.serialize())
-    elif request.method == 'DELETE':
+    if request.method == 'PUT':
+        body = request.get_json()
+        user_exists.name = body.get('name', user_exists.name)
+        user_exists.age = body.get('age', user_exists.age)
+        if 'address' in body:
+            user_exists.address.street = \
+                body['address'].get('street', user_exists.address.street)
+            user_exists.address.number = \
+                body['address'].get('number', user_exists.address.number)
+            user_exists.address.city = \
+                body['address'].get('city', user_exists.address.city)
+            user_exists.address.state = \
+                body['address'].get('state', user_exists.address.state)
+        db.session.commit()
+        response = Response(status=204)
+        return response
+    if request.method == 'DELETE':
         db.session.delete(user_exists)
         db.session.commit()
         response = Response(status=204)
