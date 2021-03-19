@@ -8,7 +8,7 @@ users_blueprint = Blueprint('users_blueprint', __name__)
 
 @users_blueprint.route('/users/<id>', methods=['GET', 'DELETE'])
 def user(id):
-    user_exists = User.query.filter_by(id=id).first()
+    user_exists = User.query.get(id)
     if user_exists is None:
         response = Response(response='User not found.', status=404)
         return response
