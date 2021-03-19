@@ -10,6 +10,7 @@ python-dotenv = "*"
 psycopg2 = "*"
 flask-script = "*"
 flask-migrate = "*"
+flask-cors = "*"
 
 [dev-packages]
 

@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from database.db import db
+from flask_cors import CORS
 from dotenv import load_dotenv
 from blueprints.users import users_blueprint
 from utils.http import not_found, not_allowed, internal_error
@@ -13,6 +14,7 @@ def create_app():
     app.config.from_object(os.getenv('APP_SETTINGS'))
     app.url_map.strict_slashes = False
     db.init_app(app)
+    CORS(app)
 
     app.register_blueprint(users_blueprint, url_prefix='/api/v1')
 
