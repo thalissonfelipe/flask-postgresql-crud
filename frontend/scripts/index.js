@@ -1,5 +1,6 @@
-window.onload = () => {
-    loadUsers();
+window.onload = async () => {
+    await loadUsers();
+    setButtonEvents();
 }
 
 async function fetchUsers() {
@@ -13,9 +14,14 @@ async function fetchUsers() {
     return data;
 }
 
+async function deleteUser(id) {
+    await fetch(`http://localhost:5000/api/v1/users/${id}`, { method: 'DELETE' });
+}
+
 async function loadUsers() {
     const users = await fetchUsers();
     const usersList = document.querySelector('.users-list');
+    usersList.innerHTML = '';
 
     users.forEach(user => {
         usersList.insertAdjacentHTML('beforeend',
@@ -28,10 +34,44 @@ async function loadUsers() {
                     '</address>' +
                 '</div>' +
                 '<div class="item__right">' +
-                    '<button class="btn btn--update">Editar</button>' +
-                    '<button class="btn btn--remove">Remover</button>' +
+                    `<button data-id=${user.id} class="btn btn--update">Editar</button>` +
+                    `<button data-id=${user.id} class="btn btn--remove">Remover</button>` +
                 '</div>' +
             '</div>'
         );
     });
+}
+
+function setButtonEvents() {
+    const btnNo = document.getElementById('btnNo');
+    const btnYes = document.getElementById('btnYes');
+    // const btnUpdate = document.querySelectorAll('.btn--update');
+    const btnRemove = document.querySelectorAll('.btn--remove');
+    const modal = document.getElementById('modal');
+
+    btnNo.addEventListener('click', () => {
+        closeModal();
+    });
+
+    btnYes.addEventListener('click', async () => {
+        const id = modal.getAttribute('id');
+        await deleteUser(id);
+        closeModal();
+        await loadUsers();
+    });
+
+    // btnUpdate.addEventListener('click', () => {});
+
+    btnRemove.forEach(btn => btn.addEventListener('click', e => {
+        modal.setAttribute('id', e.target.dataset.id);
+        openModal();
+    }));
+}
+
+function closeModal() {
+    document.querySelector('.overlay').style.display = 'none';
+}
+
+function openModal() {
+    document.querySelector('.overlay').style.display = 'flex';
 }

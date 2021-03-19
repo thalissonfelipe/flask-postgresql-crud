@@ -1,3 +1,5 @@
+/* Global CSS */
+
 * {
     margin: 0;
     padding: 0;
@@ -14,6 +16,8 @@ body {
     font-size: 1rem;
     font-family: 'Roboto', sans-serif;
 }
+
+/* Utilities */
 
 .container {
     width: 100%;
@@ -37,13 +41,20 @@ body {
     opacity: .8;
 }
 
-.btn--remove {
+.btn--remove,
+.btn--no {
     background-color: #dc3545;
 }
 
 .btn--update {
     background-color: #007bff;
 }
+
+.btn--yes {
+    background-color: #28a745;
+}
+
+/* Users List */
 
 .title {
     padding: 1rem 0 1rem 1rem;
@@ -75,4 +86,36 @@ body {
 
 .item__right button:first-child {
     margin-right: .5rem;
+}
+
+/* Modal Section */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.modal-container {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
+    background-color: whitesmoke;
+}
+
+.modal-container .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
 }
