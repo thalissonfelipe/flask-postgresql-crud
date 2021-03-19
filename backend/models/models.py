@@ -1,7 +1,17 @@
 from database.db import db
+from datetime import datetime
 
 
-class User(db.Model):
+class TimestampMixin:
+    created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    updated = db.Column(
+        db.DateTime,
+        default=datetime.utcnow,
+        onupdate=datetime.utcnow
+    )
+
+
+class User(TimestampMixin, db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -34,7 +44,7 @@ class User(db.Model):
         }
 
 
-class Address(db.Model):
+class Address(TimestampMixin, db.Model):
     __tablename__ = 'addresses'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
