@@ -1,5 +1,5 @@
 from database.db import db
-from models.models import User
+from models.models import User, Address
 from flask import Blueprint, jsonify, request, Response
 
 
@@ -21,8 +21,8 @@ def user(id):
         return response
 
 
-@users_blueprint.route('/users', methods=['GET'])
-def index():
+@users_blueprint.route('/users', methods=['GET', 'POST'])
+def users():
     if request.method == 'GET':
         limit = request.args.get('limit', None)
         order_by = request.args.get('order_by', None)
@@ -39,3 +39,19 @@ def index():
                     .all()
 
         return jsonify([user.serialize() for user in users])
+    if request.method == 'POST':
+        body = request.get_json()
+        user = User(body['name'], body['age'])
+        db.session.add(user)
+        db.session.commit()
+        address = Address(
+            body['address']['street'],
+            body['address']['number'],
+            body['address']['city'],
+            body['address']['state'],
+            user.id
+        )
+        db.session.add(address)
+        db.session.commit()
+
+        return jsonify(user.serialize()), 201
