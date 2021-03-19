@@ -54,10 +54,17 @@ body {
     background-color: #28a745;
 }
 
+.btn--add {
+    background-color: #6c757d;
+}
+
 /* Users List */
 
-.title {
-    padding: 1rem 0 1rem 1rem;
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
 }
 
 .users-list {
@@ -118,4 +125,8 @@ body {
     align-items: center;
     justify-content: space-around;
     width: 100%;
+}
+
+.modal-container .buttons .btn {
+    width: 40%;
 }
