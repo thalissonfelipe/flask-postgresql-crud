@@ -1,3 +1,4 @@
+from database.db import db
 from models.models import User
 from flask import Blueprint, jsonify, request, Response
 
@@ -5,14 +6,19 @@ from flask import Blueprint, jsonify, request, Response
 users_blueprint = Blueprint('users_blueprint', __name__)
 
 
-@users_blueprint.route('/users/<id>', methods=['GET'])
-def show(id):
-    user = User.query.filter_by(id=id).first()
-    if user:
-        return jsonify(user.serialize())
-
-    response = Response(response='User not found.', status=404)
-    return response
+@users_blueprint.route('/users/<id>', methods=['GET', 'DELETE'])
+def user(id):
+    user_exists = User.query.filter_by(id=id).first()
+    if user_exists is None:
+        response = Response(response='User not found.', status=404)
+        return response
+    if request.method == 'GET':
+        return jsonify(user_exists.serialize())
+    elif request.method == 'DELETE':
+        db.session.delete(user_exists)
+        db.session.commit()
+        response = Response(status=204)
+        return response
 
 
 @users_blueprint.route('/users', methods=['GET'])

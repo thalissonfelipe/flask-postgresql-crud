@@ -5,10 +5,7 @@ from datetime import datetime
 class TimestampMixin:
     created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated = db.Column(
-        db.DateTime,
-        default=datetime.utcnow,
-        onupdate=datetime.utcnow
-    )
+        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
 
 class User(TimestampMixin, db.Model):
@@ -17,7 +14,8 @@ class User(TimestampMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String, nullable=False)
     age = db.Column(db.Integer, nullable=False)
-    address = db.relationship('Address', uselist=False, backref='users')
+    address = db.relationship(
+        'Address', uselist=False, backref='users', cascade='all, delete')
 
     def __init__(self, name, age):
         self.name = name
@@ -53,11 +51,7 @@ class Address(TimestampMixin, db.Model):
     city = db.Column(db.String, nullable=False)
     state = db.Column(db.String, nullable=False)
     user_id = db.Column(
-        db.Integer,
-        db.ForeignKey('users.id'),
-        unique=True,
-        nullable=False
-    )
+        db.Integer, db.ForeignKey('users.id'), unique=True, nullable=False)
 
     def __init__(self, street, number, city, state, user_id):
         self.street = street
