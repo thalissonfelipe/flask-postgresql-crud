@@ -34,7 +34,7 @@ async function loadUsers() {
                     '</address>' +
                 '</div>' +
                 '<div class="item__right">' +
-                    `<button data-id=${user.id} class="btn btn--update">Editar</button>` +
+                    `<a data-id=${user.id} href="update-user.html?id=${user.id}" class="btn btn--update">Editar</a>` +
                     `<button data-id=${user.id} class="btn btn--remove">Remover</button>` +
                 '</div>' +
             '</div>'
