@@ -3,8 +3,9 @@ from flask import Flask
 from database.db import db
 from flask_cors import CORS
 from dotenv import load_dotenv
+from utils.errors import BadRequestException
 from blueprints.users import users_blueprint
-from utils.http import not_found, not_allowed, internal_error
+from utils.http import bad_request, not_found, not_allowed, internal_error
 
 load_dotenv()  # load env files
 
@@ -17,6 +18,10 @@ def create_app():
     CORS(app)
 
     app.register_blueprint(users_blueprint, url_prefix='/api/v1')
+
+    @app.errorhandler(BadRequestException)
+    def bad_request_exception(e):
+        return bad_request(e)
 
     @app.errorhandler(404)
     def route_not_found(e):

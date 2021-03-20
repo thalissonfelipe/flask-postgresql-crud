@@ -37,6 +37,16 @@ def created(model: db.Model) -> ResponseType:
     return jsonify(model.serialize()), 201
 
 
+def bad_request(exception: Exception) -> ResponseType:
+    """
+    Helper function that returns an http status code 400 and an error message.
+
+    @param exception: The exception throwed.
+    """
+
+    return Response(response=str(exception), status=400)
+
+
 def not_found(resource: str) -> ResponseType:
     """
     Helper function that returns an http status code 404.
