@@ -51,10 +51,10 @@ btnUpdate.addEventListener('click', async e => {
 
     const body = {
         name: completeName.value,
-        age: age.value,
+        age: parseInt(age.value),
         address: {
             street: street.value,
-            number: number.value,
+            number: parseInt(number.value),
             city: city.value,
             state: state.value
         }
