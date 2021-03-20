@@ -45,27 +45,29 @@ async function loadUsers() {
 function setButtonEvents() {
     const btnNo = document.getElementById('btnNo');
     const btnYes = document.getElementById('btnYes');
-    // const btnUpdate = document.querySelectorAll('.btn--update');
     const btnRemove = document.querySelectorAll('.btn--remove');
     const modal = document.getElementById('modal');
 
-    btnNo.addEventListener('click', () => {
-        closeModal();
-    });
+    btnNo.addEventListener('click', closeModal);
 
-    btnYes.addEventListener('click', async () => {
-        const id = modal.getAttribute('id');
-        await deleteUser(id);
-        closeModal();
-        await loadUsers();
-    });
-
-    // btnUpdate.addEventListener('click', () => {});
+    btnYes.addEventListener('click', yesBtnListener);
 
     btnRemove.forEach(btn => btn.addEventListener('click', e => {
-        modal.setAttribute('id', e.target.dataset.id);
+        modal.setAttribute('userid', e.target.dataset.id);
         openModal();
     }));
+}
+
+async function yesBtnListener() {
+    const id = modal.getAttribute('userid');
+    await deleteUser(id);
+    closeModal();
+    updateEvents();
+}
+
+async function updateEvents() {
+    await loadUsers();
+    setButtonEvents();
 }
 
 function closeModal() {

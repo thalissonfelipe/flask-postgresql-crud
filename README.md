@@ -131,4 +131,4 @@ python -m http.server 5500
 - [ ] Validate the parameters and body passed in all routes.
 - [ ] Log API exceptions
 - [ ] Refactor blueprints (separate handlers from db manipulation)
-- [ ] Bug: Investigate delete operation on index.html page
+- [x] Bug: Investigate delete operation on index.html page
