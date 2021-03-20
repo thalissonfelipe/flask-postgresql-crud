@@ -41,6 +41,10 @@ class User(TimestampMixin, db.Model):
             }
         }
 
+    @classmethod
+    def from_json(cls, json):
+        return cls(json['name'], json['age'])
+
 
 class Address(TimestampMixin, db.Model):
     __tablename__ = 'addresses'
@@ -76,3 +80,13 @@ class Address(TimestampMixin, db.Model):
             'city': self.city,
             'state': self.state
         }
+
+    @classmethod
+    def from_json(cls, json, user_id):
+        return cls(
+            json['street'],
+            json['number'],
+            json['city'],
+            json['state'],
+            user_id
+        )
