@@ -120,15 +120,16 @@ python -m http.server 5500
 
 ## API Endpoints
 
-- [GET users]()
-- [GET users/:id]()
-- [POST users/]()
-- [PUT users/:id]()
-- [DELETE users/:id]()
+- [GET users](docs/get_users.md)
+- [GET users/:id](docs/get_user.md)
+- [POST users/](docs/post_user.md)
+- [PUT users/:id](docs/put_user.md)
+- [DELETE users/:id](docs/delete_user.md)
 
 ## TODO
 
-- [ ] Validate the parameters and body passed in all routes.
+- [x] Validate the parameters and body passed in all routes.
 - [ ] Log API exceptions
-- [ ] Refactor blueprints (separate handlers from db manipulation)
+- [x] Refactor blueprints (separate handlers from db manipulation)
 - [x] Bug: Investigate delete operation on index.html page
+- [ ] Add unit tests
