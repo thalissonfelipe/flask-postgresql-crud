@@ -18,6 +18,17 @@
     border-top: 1px solid #6c757d;
 }
 
+@media (max-width: 596px) {
+    .users-list__item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .item__right .btn {
+        margin-top: .5rem;
+    }
+}
+
 .users-list__item:last-child {
     border-bottom: 1px solid #6c757d;
 }
